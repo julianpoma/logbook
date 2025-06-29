@@ -29,32 +29,32 @@ class AircraftFactory extends Factory
         $aircraftData = [
             'Cessna' => [
                 'models' => ['152', '172', '175', '177', '180', '182', '185', '206', '210', '310', '320', '340', '350', '414', '421', '441'],
-                'class' => 'Airplane SEL',
+                'class' => 'ASEL',
                 'horsepower_range' => [100, 350],
             ],
             'Piper' => [
                 'models' => ['Cherokee', 'Archer', 'Arrow', 'Saratoga', 'Seneca', 'Aztec', 'Navajo', 'Cheyenne', 'Malibu', 'Mirage'],
-                'class' => 'Airplane SEL',
+                'class' => 'ASEL',
                 'horsepower_range' => [140, 400],
             ],
             'Beechcraft' => [
                 'models' => ['Musketeer', 'Sundowner', 'Sierra', 'Bonanza', 'Baron', 'Duke', 'King Air 90', 'King Air 200', 'King Air 350'],
-                'class' => 'Airplane SEL',
+                'class' => 'ASEL',
                 'horsepower_range' => [180, 850],
             ],
             'Cirrus' => [
                 'models' => ['SR20', 'SR22', 'SR22T'],
-                'class' => 'Airplane SEL',
+                'class' => 'ASEL',
                 'horsepower_range' => [200, 315],
             ],
             'Diamond' => [
                 'models' => ['DA20', 'DA40', 'DA42', 'DA62'],
-                'class' => 'Airplane SEL',
+                'class' => 'ASEL',
                 'horsepower_range' => [125, 360],
             ],
             'Mooney' => [
                 'models' => ['M20C', 'M20E', 'M20F', 'M20J', 'M20K', 'M20M', 'M20R', 'M20S', 'M20TN'],
-                'class' => 'Airplane SEL',
+                'class' => 'ASEL',
                 'horsepower_range' => [180, 280],
             ],
         ];
@@ -82,12 +82,7 @@ class AircraftFactory extends Factory
         // Adjust class based on characteristics
         $class = $makeData['class'];
         if (in_array($model, ['310', '320', '340', '350', '414', '421', '441', 'Seneca', 'Aztec', 'Navajo', 'Baron', 'Duke', 'DA42', 'DA62'])) {
-            $class = 'MEL';
-        }
-
-        if ($isTurbine) {
-            $class = str_replace('SEL', 'SET', $class);
-            $class = str_replace('MEL', 'MET', $class);
+            $class = 'AMEL';
         }
 
         return [
