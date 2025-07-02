@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Flight extends Model
 {
@@ -69,5 +70,13 @@ class Flight extends Model
     public function aircraft(): BelongsTo
     {
         return $this->belongsTo(Aircraft::class);
+    }
+
+    /**
+     * Get the properties of the flight.
+     */
+    public function properties(): HasMany
+    {
+        return $this->hasMany(FlightProperty::class);
     }
 }

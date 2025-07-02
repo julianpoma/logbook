@@ -14,9 +14,9 @@ class FlightController extends Controller
      */
     public function index()
     {
-        $userId = Auth::user()->id;
+        $uid = Auth::id();
 
-        $flights = Flight::where('user_id', $userId)->get();
+        $flights = Flight::with(['aircraft:id,model,make,ident', 'properties:key,value'])->where('user_id', $uid)->get();
 
         return Inertia::render('flights/page', ['flights' => $flights]);
     }
