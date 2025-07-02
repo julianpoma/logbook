@@ -6,7 +6,7 @@ import { AgGridReact } from 'ag-grid-react';
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 const columns: Array<ColDef | ColGroupDef> = [
-  { field: 'date', headerName: 'Date' },
+  { field: 'date', headerName: 'Date', width: 120 },
 
   {
     headerName: 'Route of flight',

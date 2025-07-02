@@ -42,7 +42,6 @@ class Flight extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'date' => 'date',
         'time_total' => 'decimal:1',
         'time_pic' => 'decimal:1',
         'time_sic' => 'decimal:1',
