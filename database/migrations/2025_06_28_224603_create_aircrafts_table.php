@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('make');
             $table->string('model');
-            $table->string('ident')->unique();
+            $table->string('ident');
             $table->integer('horsepower')->nullable();
             $table->string('class');
             $table->boolean('is_complex')->default(false);
@@ -26,6 +26,8 @@ return new class extends Migration
             $table->boolean('is_tailwheel')->default(false);
             $table->text('notes')->nullable();
             $table->timestamps();
+
+            $table->unique(['user_id', 'ident']);
         });
     }
 
