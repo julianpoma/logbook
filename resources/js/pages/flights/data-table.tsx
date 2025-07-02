@@ -6,13 +6,21 @@ import { AgGridReact } from 'ag-grid-react';
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 const columns: Array<ColDef | ColGroupDef> = [
-  { field: 'date', headerName: 'Date', width: 120 },
+  { field: 'date', headerName: 'Date', width: 120, pinned: true },
 
   {
     headerName: 'Route of flight',
     children: [
-      { field: 'departure_airport', headerName: 'From', width: 100 },
-      { field: 'arrival_airport', headerName: 'To', width: 100 },
+      { field: 'departure_airport', headerName: 'From', width: 75, pinned: true },
+      { field: 'arrival_airport', headerName: 'To', width: 75, pinned: true },
+    ],
+  },
+
+  {
+    headerName: 'Aircraft',
+    children: [
+      { field: 'aircraft.model', headerName: 'Model', width: 100 },
+      { field: 'aircraft.ident', headerName: 'Ident', width: 100 },
     ],
   },
 
@@ -60,7 +68,7 @@ type Props = {
 
 export default function DataTable({ data }: Props) {
   return (
-    <div className="h-[900px] w-full">
+    <div className="min-h-(--content-h) w-2/3">
       <AgGridReact theme={theme} rowData={data} columnDefs={columns} pagination={true} />
     </div>
   );
