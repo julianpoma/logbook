@@ -67,9 +67,5 @@ type Props = {
 };
 
 export default function DataTable({ data }: Props) {
-  return (
-    <div className="min-h-(--content-h) w-2/3">
-      <AgGridReact theme={theme} rowData={data} columnDefs={columns} pagination={true} />
-    </div>
-  );
+  return <AgGridReact theme={theme} rowData={data} columnDefs={columns} pagination={true} />;
 }
