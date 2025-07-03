@@ -2,6 +2,8 @@ import { themeQuartz } from 'ag-grid-community';
 
 export const theme = themeQuartz.withParams({
   borderColor: '#181D1F21',
+  borderWidth: '0.5px',
+  headerBackgroundColor: '#f5f5f597',
   borderRadius: 0,
   browserColorScheme: 'light',
   columnBorder: true,
