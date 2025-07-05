@@ -12,7 +12,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           className="inline-flex h-7 flex-row items-center gap-1.5 rounded px-2 text-sm text-primary-foreground hover:bg-sidebar-link [&_svg]:pointer-events-none [&_svg]:size-3.5"
         >
           <Rows4 />
-          <span>Flights</span>
+          <span>Logbook</span>
         </a>
       </SidebarContent>
 
