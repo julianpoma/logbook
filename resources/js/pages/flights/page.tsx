@@ -4,6 +4,7 @@ import { type BreadcrumbItem } from '@/types';
 import type { Flight } from '@/types/flights';
 import { Head } from '@inertiajs/react';
 import DataTable from './data-table';
+import DetailView from './detail-view';
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -29,9 +30,7 @@ export default function Flights({ flights }: Props) {
         <ResizableHandle withHandle />
 
         <ResizablePanel defaultSize={25} minSize={25} maxSize={35}>
-          <div className="flex h-full items-center justify-center p-6">
-            <span className="font-semibold">Content</span>
-          </div>
+          <DetailView />
         </ResizablePanel>
       </ResizablePanelGroup>
     </AppLayout>

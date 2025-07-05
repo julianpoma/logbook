@@ -1,4 +1,4 @@
-import { Rows4 } from 'lucide-react';
+import { Plane, Rows4 } from 'lucide-react';
 import * as React from 'react';
 
 import { Sidebar, SidebarContent } from '@/components/ui/sidebar';
@@ -9,10 +9,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <a
           href="/flights"
-          className="inline-flex h-7 flex-row items-center gap-1.5 rounded px-2 text-sm text-primary-foreground hover:bg-sidebar-link [&_svg]:pointer-events-none [&_svg]:size-3.5"
+          className="text inline-flex h-7 flex-row items-center gap-2 rounded px-2 text-sm text-fg-secondary hover:bg-secondary [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:text-muted hover:[&_svg]:text-fg-primary"
         >
           <Rows4 />
           <span>Logbook</span>
+        </a>
+
+        <a
+          href="/aircrafts"
+          className="text inline-flex h-7 flex-row items-center gap-2 rounded px-2 text-sm text-fg-secondary hover:bg-secondary [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:text-muted hover:[&_svg]:text-fg-primary"
+        >
+          <Plane />
+          <span>Aircrafts</span>
         </a>
       </SidebarContent>
 
