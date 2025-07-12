@@ -23,13 +23,13 @@ export default function Flights({ flights }: Props) {
       <Head title="Flights" />
 
       <ResizablePanelGroup direction="horizontal">
-        <ResizablePanel defaultSize={75}>
+        <ResizablePanel defaultSize={80}>
           <DataTable data={flights} />
         </ResizablePanel>
 
         <ResizableHandle withHandle />
 
-        <ResizablePanel defaultSize={25} minSize={25} maxSize={35}>
+        <ResizablePanel defaultSize={20} minSize={20} maxSize={25}>
           <DetailView />
         </ResizablePanel>
       </ResizablePanelGroup>
