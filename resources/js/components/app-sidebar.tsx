@@ -23,10 +23,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <span>Aircrafts</span>
         </a>
       </SidebarContent>
-
-      {/* <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter> */}
     </Sidebar>
   );
 }
