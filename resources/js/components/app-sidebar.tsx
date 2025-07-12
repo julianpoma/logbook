@@ -5,7 +5,7 @@ import { Sidebar, SidebarContent } from '@/components/ui/sidebar';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar variant="inset" {...props}>
+    <Sidebar {...props}>
       <SidebarContent>
         <a
           href="/flights"
