@@ -1,6 +1,7 @@
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
+import { Aircrafts } from '@/types/aircrafts';
 import type { Flight } from '@/types/flights';
 import { Head } from '@inertiajs/react';
 import DataTable from './data-table';
@@ -14,10 +15,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 type Props = {
+  aircrafts: Array<Aircrafts>;
   flights: Array<Flight>;
 };
 
-export default function Flights({ flights }: Props) {
+export default function Flights({ aircrafts, flights }: Props) {
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Flights" />
@@ -30,7 +32,7 @@ export default function Flights({ flights }: Props) {
         <ResizableHandle withHandle />
 
         <ResizablePanel defaultSize={20} minSize={20} maxSize={25}>
-          <DetailView />
+          <DetailView aircrafts={aircrafts} />
         </ResizablePanel>
       </ResizablePanelGroup>
     </AppLayout>

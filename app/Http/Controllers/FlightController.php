@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aircraft;
 use App\Models\Flight;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,16 @@ class FlightController extends Controller
             // ->limit(5)
             ->get();
 
-        return Inertia::render('flights/page', ['flights' => $flights]);
+        $aircrafts = Aircraft::query()
+            ->select(['id', 'ident', 'model'])
+            ->where('user_id', $uid)
+            ->orderBy('ident')
+            ->get();
+
+        return Inertia::render('flights/page', [
+            'aircrafts' => $aircrafts,
+            'flights' => $flights,
+        ]);
     }
 
     /**
