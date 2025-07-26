@@ -48,7 +48,7 @@ class FlightController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->input());
     }
 
     /**
@@ -72,7 +72,11 @@ class FlightController extends Controller
      */
     public function update(Request $request, Flight $flight)
     {
-        //
+        $flight->update([
+            'date' => '2023-02-02',
+        ]);
+
+        return to_route('flights');
     }
 
     /**

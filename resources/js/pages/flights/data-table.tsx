@@ -1,9 +1,16 @@
 import { theme } from '@/lib/ag-grid-theme';
+import useFlightPage from '@/state/flight-slice';
 import { Flight } from '@/types/flights';
-import { AllCommunityModule, ColGroupDef, ModuleRegistry, type ColDef } from 'ag-grid-community';
+import { AllCommunityModule, type ColDef, type ColGroupDef, ModuleRegistry, type RowSelectionOptions } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
+
+const rowSelection: RowSelectionOptions = {
+  mode: 'singleRow',
+  checkboxes: false,
+  enableClickSelection: true,
+};
 
 const columns: Array<ColDef | ColGroupDef> = [
   { field: 'date', headerName: 'Date', width: 120, pinned: true },
@@ -63,9 +70,22 @@ const columns: Array<ColDef | ColGroupDef> = [
 ];
 
 type Props = {
-  data: Array<Flight>;
+  flights: Array<Flight>;
 };
 
-export default function DataTable({ data }: Props) {
-  return <AgGridReact theme={theme} rowData={data} columnDefs={columns} pagination={true} />;
+export default function DataTable({ flights }: Props) {
+  const { selectEntry } = useFlightPage();
+
+  return (
+    <AgGridReact
+      theme={theme}
+      rowData={flights}
+      columnDefs={columns}
+      rowSelection={rowSelection}
+      onRowSelected={(event) => {
+        if (event.node.isSelected()) selectEntry(event.data.id);
+      }}
+      pagination
+    />
+  );
 }

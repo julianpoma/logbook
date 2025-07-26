@@ -10,6 +10,8 @@ Route::get('/', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/flights', [FlightController::class, 'index'])->name('flights');
+    Route::post('/flights', [FlightController::class, 'store']);
+    Route::put('/flights/{flight}', [FlightController::class, 'update']);
 });
 
 require __DIR__.'/settings.php';

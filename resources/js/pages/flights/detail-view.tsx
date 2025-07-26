@@ -2,31 +2,86 @@ import { Button } from '@/components/ui/button';
 import Input from '@/components/ui/input';
 import Select from '@/components/ui/select';
 import Textarea from '@/components/ui/textarea';
-import { Aircrafts } from '@/types/aircrafts';
+import useFlightPage from '@/state/flight-slice';
+import { Aircraft } from '@/types/aircrafts';
+import { Flight } from '@/types/flights';
 import { Field, Fieldset, Label, Legend } from '@headlessui/react';
-import { CopyCheck } from 'lucide-react';
+import { useForm } from '@inertiajs/react';
+import { CopyCheck, Save, Trash } from 'lucide-react';
 
 type HeaderProps = {
-  children: React.ReactElement;
+  children: React.ReactNode;
 };
 
 function Header({ children }: HeaderProps) {
   return (
-    <div data-slot="detail-header" className="sticky top-0 flex items-center border-b bg-sidebar px-3 text-sm font-medium">
+    <div data-slot="detail-header" className="sticky top-0 z-10 flex items-center border-b bg-sidebar px-3 text-sm font-medium">
       {children}
     </div>
   );
 }
 
-type Props = {
-  aircrafts: Array<Aircrafts>;
+type FormProps = {
+  aircrafts: Array<Aircraft>;
+  flight: Flight | null;
 };
 
-export default function DetailView({ aircrafts }: Props) {
+function Form({ flight, aircrafts }: FormProps) {
+  const { unselectEntity } = useFlightPage();
+
+  const mode = flight ? 'edit' : 'create';
+
+  const { data, setData, post, put } = useForm({
+    date: flight?.date,
+    departure_airport: flight?.departure_airport,
+    arrival_airport: flight?.arrival_airport,
+    aircraft_id: flight?.aircraft_id,
+    time_total: flight?.time_total,
+    time_pic: flight?.time_pic ?? undefined,
+    time_sic: flight?.time_sic ?? undefined,
+    time_xc: flight?.time_xc ?? undefined,
+    time_night: flight?.time_night ?? undefined,
+    time_solo: flight?.time_solo ?? undefined,
+    time_dual_received: flight?.time_dual_received ?? undefined,
+    time_actual_instrument: flight?.time_actual_instrument ?? undefined,
+    time_simulated_instrument: flight?.time_simulated_instrument ?? undefined,
+    landings_day: flight?.landings_day,
+    landings_night: flight?.landings_night,
+    remarks: flight?.remarks ?? undefined,
+  });
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const onSuccess = () => {
+      unselectEntity();
+    };
+
+    if (mode === 'create') {
+      post('/flights', { onSuccess });
+    } else {
+      put('/flights/' + flight!.id, { onSuccess });
+    }
+  }
+
   return (
-    <div className="grid h-full grid-rows-[41px_1fr] overflow-y-auto bg-sidebar">
+    <form className="grid h-full grid-rows-[41px_1fr] overflow-y-auto bg-sidebar" onSubmit={handleSubmit}>
       <Header>
-        <span>Properties</span>
+        <div className="flex w-full flex-row items-center justify-between">
+          <span className="block">Properties</span>
+
+          <div className="flex items-center gap-1">
+            {mode === 'edit' && (
+              <Button variant="tertiary" size="icon" onClick={(event) => event.preventDefault()}>
+                <Trash />
+              </Button>
+            )}
+
+            <Button type="submit" variant="tertiary" size="icon">
+              <Save />
+            </Button>
+          </div>
+        </div>
       </Header>
 
       <div data-slot="detail-content" className="px-3 py-1">
@@ -34,31 +89,52 @@ export default function DetailView({ aircrafts }: Props) {
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">Date</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Input name="date" type="date" required />
+              <Input name="date" type="date" defaultValue={data.date} required />
             </div>
           </Field>
 
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">Departure airport</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Input name="departure_airport" type="text" className="uppercase" required />
+              <Input
+                name="departure_airport"
+                type="text"
+                className="uppercase"
+                defaultValue={data.departure_airport}
+                onChange={(event) => setData('departure_airport', event.target.value)}
+                required
+              />
             </div>
           </Field>
 
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">Arrival airport</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Input name="arrival_airport" type="text" className="uppercase" required />
+              <Input
+                name="arrival_airport"
+                type="text"
+                className="uppercase"
+                defaultValue={data.arrival_airport}
+                onChange={(event) => setData('arrival_airport', event.target.value)}
+                required
+              />
             </div>
           </Field>
 
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">Aircraft</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Select name="aircraft_id" defaultValue="" aria-placeholder="asd" required>
-                <option id=""></option>
+              <Select
+                name="aircraft_id"
+                defaultValue={data.aircraft_id?.toString()}
+                onChange={(event) => setData('aircraft_id', +event.target.value)}
+                required
+              >
+                <option key="" value=""></option>
                 {aircrafts.map(({ id, ident, model }) => (
-                  <option id={id.toString()}>{ident + ' (' + model + ')'}</option>
+                  <option key={id.toString()} value={id.toString()}>
+                    {ident + ' (' + model + ')'}
+                  </option>
                 ))}
               </Select>
             </div>
@@ -71,14 +147,29 @@ export default function DetailView({ aircrafts }: Props) {
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">Total</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Input name="time_total" type="number" min={0.1} step={0.1} required />
+              <Input
+                name="time_total"
+                type="number"
+                min={0.1}
+                step={0.1}
+                defaultValue={data.time_total}
+                onChange={(event) => setData('time_total', +event.target.value)}
+                required
+              />
             </div>
           </Field>
 
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">PIC</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Input name="time_pic" type="number" min={0.1} step={0.1} />
+              <Input
+                name="time_pic"
+                type="number"
+                min={0.1}
+                step={0.1}
+                value={data.time_pic}
+                onChange={(event) => setData('time_pic', +event.target.value)}
+              />
               <Button variant="ghost" size="icon">
                 <CopyCheck />
               </Button>
@@ -88,7 +179,14 @@ export default function DetailView({ aircrafts }: Props) {
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">SIC</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Input name="time_sic" type="number" min={0.1} step={0.1} />
+              <Input
+                name="time_sic"
+                type="number"
+                min={0.1}
+                step={0.1}
+                value={data.time_sic}
+                onChange={(event) => setData('time_sic', +event.target.value)}
+              />
               <Button variant="ghost" size="icon">
                 <CopyCheck />
               </Button>
@@ -98,7 +196,14 @@ export default function DetailView({ aircrafts }: Props) {
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">XC</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Input name="time_xc" type="number" min={0.1} step={0.1} />
+              <Input
+                name="time_xc"
+                type="number"
+                min={0.1}
+                step={0.1}
+                value={data.time_xc}
+                onChange={(event) => setData('time_xc', +event.target.value)}
+              />
               <Button variant="ghost" size="icon">
                 <CopyCheck />
               </Button>
@@ -108,7 +213,14 @@ export default function DetailView({ aircrafts }: Props) {
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">Night</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Input name="time_night" type="number" min={0.1} step={0.1} />
+              <Input
+                name="time_night"
+                type="number"
+                min={0.1}
+                step={0.1}
+                value={data.time_night}
+                onChange={(event) => setData('time_night', +event.target.value)}
+              />
               <Button variant="ghost" size="icon">
                 <CopyCheck />
               </Button>
@@ -118,7 +230,14 @@ export default function DetailView({ aircrafts }: Props) {
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">Solo</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Input name="time_solo" type="number" min={0.1} step={0.1} />
+              <Input
+                name="time_solo"
+                type="number"
+                min={0.1}
+                step={0.1}
+                value={data.time_solo}
+                onChange={(event) => setData('time_solo', +event.target.value)}
+              />
               <Button variant="ghost" size="icon">
                 <CopyCheck />
               </Button>
@@ -128,7 +247,14 @@ export default function DetailView({ aircrafts }: Props) {
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">Training</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Input name="time_dual_received" type="number" min={0.1} step={0.1} />
+              <Input
+                name="time_dual_received"
+                type="number"
+                min={0.1}
+                step={0.1}
+                value={data.time_dual_received}
+                onChange={(event) => setData('time_dual_received', +event.target.value)}
+              />
               <Button variant="ghost" size="icon">
                 <CopyCheck />
               </Button>
@@ -142,7 +268,14 @@ export default function DetailView({ aircrafts }: Props) {
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">Actual</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Input name="time_actual_instrument" type="number" min={0.1} step={0.1} />
+              <Input
+                name="time_actual_instrument"
+                type="number"
+                min={0.1}
+                step={0.1}
+                value={data.time_actual_instrument}
+                onChange={(event) => setData('time_actual_instrument', +event.target.value)}
+              />
               <Button variant="ghost" size="icon">
                 <CopyCheck />
               </Button>
@@ -152,7 +285,14 @@ export default function DetailView({ aircrafts }: Props) {
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">Simulated</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Input name="time_simulated_instrument" type="number" min={0.1} step={0.1} />
+              <Input
+                name="time_simulated_instrument"
+                type="number"
+                min={0.1}
+                step={0.1}
+                value={data.time_simulated_instrument}
+                onChange={(event) => setData('time_simulated_instrument', +event.target.value)}
+              />
               <Button variant="ghost" size="icon">
                 <CopyCheck />
               </Button>
@@ -166,14 +306,28 @@ export default function DetailView({ aircrafts }: Props) {
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">Day</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Input name="landings_day" type="number" min={0} step={1} />
+              <Input
+                name="landings_day"
+                type="number"
+                min={0}
+                step={1}
+                value={data.landings_day}
+                onChange={(event) => setData('landings_day', +event.target.value)}
+              />
             </div>
           </Field>
 
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">Night</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Input name="landings_night" type="number" min={0} step={1} />
+              <Input
+                name="landings_night"
+                type="number"
+                min={0}
+                step={1}
+                value={data.landings_night}
+                onChange={(event) => setData('landings_night', +event.target.value)}
+              />
             </div>
           </Field>
         </Fieldset>
@@ -184,11 +338,24 @@ export default function DetailView({ aircrafts }: Props) {
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">Remarks</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Textarea name="remarks" />
+              <Textarea name="remarks" value={data.remarks} onChange={(event) => setData('remarks', event.target.value)} />
             </div>
           </Field>
         </Fieldset>
       </div>
-    </div>
+    </form>
   );
+}
+
+type Props = {
+  aircrafts: Array<Aircraft>;
+  flights: Array<Flight>;
+};
+
+export default function DetailView({ flights, aircrafts }: Props) {
+  const { entryId } = useFlightPage();
+
+  const entry = entryId ? flights.find((flight) => flight.id === entryId) : null;
+
+  return <Form key={entryId ?? 'new'} flight={entry ?? null} aircrafts={aircrafts} />;
 }

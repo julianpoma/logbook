@@ -1,4 +1,4 @@
-export interface Aircrafts {
+export interface Aircraft {
   id: number;
   user_id: number;
   make: string;
