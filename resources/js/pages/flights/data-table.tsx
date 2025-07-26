@@ -87,6 +87,7 @@ export default function DataTable({ flights }: Props) {
       onRowSelected={(event) => {
         if (event.node.isSelected()) selectEntry(event.data.id);
       }}
+      paginationPageSize={20}
       pagination
     />
   );
