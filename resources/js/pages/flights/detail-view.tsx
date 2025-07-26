@@ -100,6 +100,7 @@ function Form({ flight, aircrafts }: FormProps) {
                 name="departure_airport"
                 type="text"
                 className="uppercase"
+                maxLength={4}
                 defaultValue={data.departure_airport}
                 onChange={(event) => setData('departure_airport', event.target.value)}
                 required
@@ -114,6 +115,7 @@ function Form({ flight, aircrafts }: FormProps) {
                 name="arrival_airport"
                 type="text"
                 className="uppercase"
+                maxLength={4}
                 defaultValue={data.arrival_airport}
                 onChange={(event) => setData('arrival_airport', event.target.value)}
                 required
