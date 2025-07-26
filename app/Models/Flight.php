@@ -11,8 +11,6 @@ class Flight extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-
     /**
      * The attributes that are mass assignable.
      *
