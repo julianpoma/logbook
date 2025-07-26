@@ -17,6 +17,9 @@
   --color-tertiary: var(--color-tertiary);
   --color-quaternary: var(--color-quaternary);
 
+  --color-hover-primary: var(--color-hover-primary);
+  --color-hover-secondary: var(--color-hover-secondary);
+
   --color-fg-primary: var(--color-text-primary);
   --color-fg-secondary: var(--color-text-secondary);
   --color-fg-tertiary: var(--color-text-tertiary);
@@ -61,6 +64,9 @@
   --color-secondary: lch(93.75% 0 282.863 / 1);
   --color-tertiary: lch(91.417% 0 282.863 / 1);
   --color-quaternary: lch(97.542% 0 282.863 / 1);
+
+  --color-hover-primary: lch(96.8 0 282.863);
+  --color-hover-secondary: lch(95 0 282.863);
 
   --color-text-primary: lch(9.723% 0 282.863 / 1);
   --color-text-secondary: lch(19.446% 1 282.863 / 1);
