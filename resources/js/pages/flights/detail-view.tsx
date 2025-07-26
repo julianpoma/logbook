@@ -27,11 +27,9 @@ type FormProps = {
 };
 
 function Form({ flight, aircrafts }: FormProps) {
-  const { unselectEntity } = useFlightPage();
-
   const mode = flight ? 'edit' : 'create';
 
-  const { data, setData, post, put } = useForm({
+  const { data, setData, isDirty, setDefaults, post, put } = useForm({
     date: flight?.date,
     departure_airport: flight?.departure_airport,
     arrival_airport: flight?.arrival_airport,
@@ -53,14 +51,14 @@ function Form({ flight, aircrafts }: FormProps) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const onSuccess = () => {
-      unselectEntity();
-    };
-
     if (mode === 'create') {
-      post('/flights', { onSuccess });
+      post('/flights');
     } else {
-      put('/flights/' + flight!.id, { onSuccess });
+      put('/flights/' + flight!.id, {
+        onSuccess() {
+          setDefaults();
+        },
+      });
     }
   }
 
@@ -77,9 +75,11 @@ function Form({ flight, aircrafts }: FormProps) {
               </Button>
             )}
 
-            <Button type="submit" variant="tertiary" size="icon">
-              <Save />
-            </Button>
+            {isDirty && (
+              <Button type="submit" variant="tertiary" size="icon">
+                <Save />
+              </Button>
+            )}
           </div>
         </div>
       </Header>
@@ -89,7 +89,7 @@ function Form({ flight, aircrafts }: FormProps) {
           <Field>
             <Label className="text-xs/6 leading-none font-medium select-none">Date</Label>
             <div className="grid grid-cols-[1fr_24px] gap-1">
-              <Input name="date" type="date" defaultValue={data.date} required />
+              <Input name="date" type="date" defaultValue={data.date} onChange={(event) => setData('date', event.target.value)} required />
             </div>
           </Field>
 
@@ -153,7 +153,7 @@ function Form({ flight, aircrafts }: FormProps) {
                 min={0.1}
                 step={0.1}
                 defaultValue={data.time_total}
-                onChange={(event) => setData('time_total', +event.target.value)}
+                onChange={(event) => setData('time_total', event.target.valueAsNumber)}
                 required
               />
             </div>

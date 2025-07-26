@@ -74,7 +74,7 @@ type Props = {
 };
 
 export default function DataTable({ flights }: Props) {
-  const { selectEntry } = useFlightPage();
+  const { selectEntry, setGridRef } = useFlightPage();
 
   return (
     <AgGridReact
@@ -82,6 +82,8 @@ export default function DataTable({ flights }: Props) {
       rowData={flights}
       columnDefs={columns}
       rowSelection={rowSelection}
+      getRowId={(row) => row.data.id}
+      onGridReady={(params) => setGridRef(params.api)}
       onRowSelected={(event) => {
         if (event.node.isSelected()) selectEntry(event.data.id);
       }}
