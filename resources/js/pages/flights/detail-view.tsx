@@ -34,18 +34,18 @@ function Form({ flight, aircrafts }: FormProps) {
     departure_airport: flight?.departure_airport,
     arrival_airport: flight?.arrival_airport,
     aircraft_id: flight?.aircraft_id,
-    time_total: flight?.time_total,
-    time_pic: flight?.time_pic ?? undefined,
-    time_sic: flight?.time_sic ?? undefined,
-    time_xc: flight?.time_xc ?? undefined,
-    time_night: flight?.time_night ?? undefined,
-    time_solo: flight?.time_solo ?? undefined,
-    time_dual_received: flight?.time_dual_received ?? undefined,
-    time_actual_instrument: flight?.time_actual_instrument ?? undefined,
-    time_simulated_instrument: flight?.time_simulated_instrument ?? undefined,
-    landings_day: flight?.landings_day,
-    landings_night: flight?.landings_night,
-    remarks: flight?.remarks ?? undefined,
+    time_total: flight?.time_total ?? '',
+    time_pic: flight?.time_pic ?? '',
+    time_sic: flight?.time_sic ?? '',
+    time_xc: flight?.time_xc ?? '',
+    time_night: flight?.time_night ?? '',
+    time_solo: flight?.time_solo ?? '',
+    time_dual_received: flight?.time_dual_received ?? '',
+    time_actual_instrument: flight?.time_actual_instrument ?? '',
+    time_simulated_instrument: flight?.time_simulated_instrument ?? '',
+    landings_day: flight?.landings_day ?? '',
+    landings_night: flight?.landings_night ?? '',
+    remarks: flight?.remarks ?? '',
   });
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -155,7 +155,7 @@ function Form({ flight, aircrafts }: FormProps) {
                 min={0.1}
                 step={0.1}
                 defaultValue={data.time_total}
-                onChange={(event) => setData('time_total', event.target.valueAsNumber)}
+                onChange={(event) => setData('time_total', event.target.value != '' ? event.target.valueAsNumber : '')}
                 required
               />
             </div>
@@ -170,9 +170,17 @@ function Form({ flight, aircrafts }: FormProps) {
                 min={0.1}
                 step={0.1}
                 value={data.time_pic}
-                onChange={(event) => setData('time_pic', +event.target.value)}
+                onChange={(event) => setData('time_pic', event.target.value != '' ? event.target.valueAsNumber : '')}
               />
-              <Button variant="ghost" size="icon">
+              <Button
+                id="hello"
+                variant="ghost"
+                size="icon"
+                onClick={(event) => {
+                  event.preventDefault();
+                  setData('time_pic', data.time_total);
+                }}
+              >
                 <CopyCheck />
               </Button>
             </div>
@@ -187,9 +195,17 @@ function Form({ flight, aircrafts }: FormProps) {
                 min={0.1}
                 step={0.1}
                 value={data.time_sic}
-                onChange={(event) => setData('time_sic', +event.target.value)}
+                onChange={(event) => setData('time_sic', event.target.value != '' ? event.target.valueAsNumber : '')}
               />
-              <Button variant="ghost" size="icon">
+              <Button
+                id="hello"
+                variant="ghost"
+                size="icon"
+                onClick={(event) => {
+                  event.preventDefault();
+                  setData('time_sic', data.time_total);
+                }}
+              >
                 <CopyCheck />
               </Button>
             </div>
@@ -204,9 +220,17 @@ function Form({ flight, aircrafts }: FormProps) {
                 min={0.1}
                 step={0.1}
                 value={data.time_xc}
-                onChange={(event) => setData('time_xc', +event.target.value)}
+                onChange={(event) => setData('time_xc', event.target.value != '' ? event.target.valueAsNumber : '')}
               />
-              <Button variant="ghost" size="icon">
+              <Button
+                id="hello"
+                variant="ghost"
+                size="icon"
+                onClick={(event) => {
+                  event.preventDefault();
+                  setData('time_xc', data.time_total);
+                }}
+              >
                 <CopyCheck />
               </Button>
             </div>
@@ -221,9 +245,17 @@ function Form({ flight, aircrafts }: FormProps) {
                 min={0.1}
                 step={0.1}
                 value={data.time_night}
-                onChange={(event) => setData('time_night', +event.target.value)}
+                onChange={(event) => setData('time_night', event.target.value != '' ? event.target.valueAsNumber : '')}
               />
-              <Button variant="ghost" size="icon">
+              <Button
+                id="hello"
+                variant="ghost"
+                size="icon"
+                onClick={(event) => {
+                  event.preventDefault();
+                  setData('time_night', data.time_total);
+                }}
+              >
                 <CopyCheck />
               </Button>
             </div>
@@ -238,9 +270,17 @@ function Form({ flight, aircrafts }: FormProps) {
                 min={0.1}
                 step={0.1}
                 value={data.time_solo}
-                onChange={(event) => setData('time_solo', +event.target.value)}
+                onChange={(event) => setData('time_solo', event.target.value != '' ? event.target.valueAsNumber : '')}
               />
-              <Button variant="ghost" size="icon">
+              <Button
+                id="hello"
+                variant="ghost"
+                size="icon"
+                onClick={(event) => {
+                  event.preventDefault();
+                  setData('time_solo', data.time_total);
+                }}
+              >
                 <CopyCheck />
               </Button>
             </div>
@@ -255,9 +295,17 @@ function Form({ flight, aircrafts }: FormProps) {
                 min={0.1}
                 step={0.1}
                 value={data.time_dual_received}
-                onChange={(event) => setData('time_dual_received', +event.target.value)}
+                onChange={(event) => setData('time_dual_received', event.target.value != '' ? event.target.valueAsNumber : '')}
               />
-              <Button variant="ghost" size="icon">
+              <Button
+                id="hello"
+                variant="ghost"
+                size="icon"
+                onClick={(event) => {
+                  event.preventDefault();
+                  setData('time_dual_received', data.time_total);
+                }}
+              >
                 <CopyCheck />
               </Button>
             </div>
@@ -276,9 +324,17 @@ function Form({ flight, aircrafts }: FormProps) {
                 min={0.1}
                 step={0.1}
                 value={data.time_actual_instrument}
-                onChange={(event) => setData('time_actual_instrument', +event.target.value)}
+                onChange={(event) => setData('time_actual_instrument', event.target.value != '' ? event.target.valueAsNumber : '')}
               />
-              <Button variant="ghost" size="icon">
+              <Button
+                id="hello"
+                variant="ghost"
+                size="icon"
+                onClick={(event) => {
+                  event.preventDefault();
+                  setData('time_actual_instrument', data.time_total);
+                }}
+              >
                 <CopyCheck />
               </Button>
             </div>
@@ -293,9 +349,17 @@ function Form({ flight, aircrafts }: FormProps) {
                 min={0.1}
                 step={0.1}
                 value={data.time_simulated_instrument}
-                onChange={(event) => setData('time_simulated_instrument', +event.target.value)}
+                onChange={(event) => setData('time_simulated_instrument', event.target.value != '' ? event.target.valueAsNumber : '')}
               />
-              <Button variant="ghost" size="icon">
+              <Button
+                id="hello"
+                variant="ghost"
+                size="icon"
+                onClick={(event) => {
+                  event.preventDefault();
+                  setData('time_simulated_instrument', data.time_total);
+                }}
+              >
                 <CopyCheck />
               </Button>
             </div>
@@ -314,7 +378,7 @@ function Form({ flight, aircrafts }: FormProps) {
                 min={0}
                 step={1}
                 value={data.landings_day}
-                onChange={(event) => setData('landings_day', +event.target.value)}
+                onChange={(event) => setData('landings_day', event.target.value != '' ? event.target.valueAsNumber : '')}
               />
             </div>
           </Field>
@@ -328,7 +392,7 @@ function Form({ flight, aircrafts }: FormProps) {
                 min={0}
                 step={1}
                 value={data.landings_night}
-                onChange={(event) => setData('landings_night', +event.target.value)}
+                onChange={(event) => setData('landings_night', event.target.value != '' ? event.target.valueAsNumber : '')}
               />
             </div>
           </Field>
