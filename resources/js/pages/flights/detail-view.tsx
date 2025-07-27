@@ -375,7 +375,7 @@ function Form({ flight, aircrafts }: FormProps) {
               <Input
                 name="landings_day"
                 type="number"
-                min={0}
+                min={1}
                 step={1}
                 value={data.landings_day}
                 onChange={(event) => setData('landings_day', event.target.value != '' ? event.target.valueAsNumber : '')}
@@ -389,7 +389,7 @@ function Form({ flight, aircrafts }: FormProps) {
               <Input
                 name="landings_night"
                 type="number"
-                min={0}
+                min={1}
                 step={1}
                 value={data.landings_night}
                 onChange={(event) => setData('landings_night', event.target.value != '' ? event.target.valueAsNumber : '')}
