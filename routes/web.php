@@ -9,10 +9,10 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/flights', [FlightController::class, 'index'])->name('flights');
-    Route::post('/flights', [FlightController::class, 'store']);
-    Route::put('/flights/{flight}', [FlightController::class, 'update']);
-    Route::delete('/flights/{flight}', [FlightController::class, 'destroy']);
+    Route::get('/flights', [FlightController::class, 'index'])->name('flights.index');
+    Route::post('/flights', [FlightController::class, 'store'])->name('flights.store');
+    Route::put('/flights/{flight}', [FlightController::class, 'update'])->name('flights.update');
+    Route::delete('/flights/{flight}', [FlightController::class, 'destroy'])->name('flights.destroy');
 });
 
 require __DIR__.'/settings.php';
