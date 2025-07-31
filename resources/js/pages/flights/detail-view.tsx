@@ -2,13 +2,14 @@ import { Button } from '@/components/ui/button';
 import Input from '@/components/ui/input';
 import Select from '@/components/ui/select';
 import Textarea from '@/components/ui/textarea';
+import { useSaveShortcut } from '@/hooks/useSaveShortcut';
 import useFlightPage from '@/state/flight-slice';
 import { Aircraft } from '@/types/aircrafts';
 import { Flight } from '@/types/flights';
 import { Field, Fieldset, Label, Legend } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { CopyCheck, Save, Trash2, X } from 'lucide-react';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 type HeaderProps = {
   children: React.ReactNode;
@@ -76,17 +77,10 @@ function Form({ flight, aircrafts }: FormProps) {
     [mode, post, put, flight, setDefaults, unselectEntity],
   );
 
-  useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
-      if ((event.metaKey || event.ctrlKey) && event.key === 's') {
-        event.preventDefault();
-        if (isDirty) handleSubmit();
-      }
-    }
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isDirty, handleSubmit]);
+  useSaveShortcut({
+    onSave: handleSubmit,
+    enabled: isDirty,
+  });
 
   return (
     <form className="grid h-full grid-rows-[41px_1fr] overflow-y-auto bg-sidebar" onSubmit={handleSubmit}>
