@@ -41,7 +41,7 @@ describe('flight.store', function () {
         $response = $this->actingAs($this->user)
             ->post('/flights', $flightData);
 
-        $response->assertRedirect('/flights');
+        $response->assertRedirect(route('flights.index'));
 
         $this->assertDatabaseHas('flights', [
             'user_id' => $this->user->id,
@@ -169,5 +169,47 @@ describe('flight.store', function () {
         $response = $this->post('/flights', []);
 
         $response->assertRedirect('/login');
+    });
+});
+
+describe('flight.destroy', function () {
+    test('only the owner can delete a flight', function () {
+        $flight = Flight::factory()->create([
+            'user_id' => $this->user->id,
+            'aircraft_id' => $this->aircraft->id,
+        ]);
+
+        $otherUser = User::factory()->create();
+
+        $response = $this->actingAs($otherUser)
+            ->delete(route('flights.destroy', $flight));
+
+        $response->assertStatus(401);
+        $this->assertDatabaseHas('flights', ['id' => $flight->id]);
+    });
+
+    it('allows the owner to delete a flight', function () {
+        $flight = Flight::factory()->create([
+            'user_id' => $this->user->id,
+            'aircraft_id' => $this->aircraft->id,
+        ]);
+
+        $response = $this->actingAs($this->user)
+            ->delete(route('flights.destroy', $flight));
+
+        $response->assertRedirect(route('flights.index'));
+        $this->assertDatabaseMissing('flights', ['id' => $flight->id]);
+    });
+
+    it('requires authentication', function () {
+        $flight = Flight::factory()->create([
+            'user_id' => $this->user->id,
+            'aircraft_id' => $this->aircraft->id,
+        ]);
+
+        $response = $this->delete(route('flights.destroy', $flight));
+
+        $response->assertRedirect('/login');
+        $this->assertDatabaseHas('flights', ['id' => $flight->id]);
     });
 });
