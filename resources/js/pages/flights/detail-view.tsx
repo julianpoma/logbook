@@ -32,7 +32,15 @@ function Form({ flight, aircrafts }: FormProps) {
 
   const mode = flight ? 'edit' : 'create';
 
-  const { data, setData, isDirty, setDefaults, post, put, reset } = useForm({
+  const {
+    data,
+    setData,
+    isDirty,
+    setDefaults,
+    post,
+    put,
+    delete: destroy,
+  } = useForm({
     date: flight?.date,
     departure_airport: flight?.departure_airport,
     arrival_airport: flight?.arrival_airport,
@@ -55,19 +63,13 @@ function Form({ flight, aircrafts }: FormProps) {
     (event?: React.FormEvent<HTMLFormElement>) => {
       event?.preventDefault();
 
-      console.log('re-render');
-
       if (mode === 'create') {
         post('/flights', {
-          onSuccess() {
-            unselectEntity();
-          },
+          onSuccess: () => unselectEntity(),
         });
       } else {
         put('/flights/' + flight!.id, {
-          onSuccess() {
-            setDefaults();
-          },
+          onSuccess: () => setDefaults(),
         });
       }
     },
@@ -105,7 +107,16 @@ function Form({ flight, aircrafts }: FormProps) {
             </Button>
 
             {mode === 'edit' && (
-              <Button variant="tertiary" size="icon" onClick={(event) => event.preventDefault()}>
+              <Button
+                variant="tertiary"
+                size="icon"
+                onClick={(event) => {
+                  event.preventDefault();
+                  destroy('/flights/' + flight!.id, {
+                    onSuccess: () => unselectEntity(),
+                  });
+                }}
+              >
                 <Trash />
               </Button>
             )}

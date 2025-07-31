@@ -87,6 +87,13 @@ class FlightController extends Controller
      */
     public function destroy(Flight $flight)
     {
-        //
+        abort_unless(
+            $flight->user()->is(Auth::user()),
+            401,
+        );
+
+        $flight->delete();
+
+        return to_route('flights');
     }
 }
