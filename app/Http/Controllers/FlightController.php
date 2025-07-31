@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFlightRequest;
+use App\Http\Requests\UpdateFlightRequest;
 use App\Models\Aircraft;
 use App\Models\Flight;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -75,9 +75,9 @@ class FlightController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Flight $flight)
+    public function update(UpdateFlightRequest $request, Flight $flight)
     {
-        $flight->update($request->input());
+        $flight->update($request->validated());
 
         return to_route('flights');
     }
