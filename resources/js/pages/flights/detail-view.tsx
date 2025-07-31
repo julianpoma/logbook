@@ -7,7 +7,7 @@ import { Aircraft } from '@/types/aircrafts';
 import { Flight } from '@/types/flights';
 import { Field, Fieldset, Label, Legend } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
-import { CopyCheck, Save, Trash, X } from 'lucide-react';
+import { CopyCheck, Save, Trash2, X } from 'lucide-react';
 import { useCallback, useEffect } from 'react';
 
 type HeaderProps = {
@@ -92,7 +92,7 @@ function Form({ flight, aircrafts }: FormProps) {
     <form className="grid h-full grid-rows-[41px_1fr] overflow-y-auto bg-sidebar" onSubmit={handleSubmit}>
       <Header>
         <div className="flex w-full flex-row items-center justify-between">
-          <span className="block">Properties</span>
+          <span className="block">{mode === 'create' ? 'New flight' : 'Properties'}</span>
 
           <div className="flex flex-row-reverse items-center">
             <Button
@@ -108,7 +108,7 @@ function Form({ flight, aircrafts }: FormProps) {
 
             {mode === 'edit' && (
               <Button
-                variant="tertiary"
+                variant="ghost"
                 size="icon"
                 onClick={(event) => {
                   event.preventDefault();
@@ -117,12 +117,12 @@ function Form({ flight, aircrafts }: FormProps) {
                   });
                 }}
               >
-                <Trash />
+                <Trash2 />
               </Button>
             )}
 
             {isDirty && (
-              <Button type="submit" variant="tertiary" size="icon">
+              <Button type="submit" variant="ghost" size="icon">
                 <Save />
               </Button>
             )}
@@ -467,7 +467,7 @@ type Props = {
 export default function DetailView({ flights, aircrafts }: Props) {
   const { entryId } = useFlightPage();
 
-  const entry = entryId ? flights.find((flight) => flight.id === entryId) : null;
+  const entry = typeof entryId === 'number' ? flights.find((flight) => flight.id === entryId) : null;
 
   return <Form key={entryId ?? 'new'} flight={entry ?? null} aircrafts={aircrafts} />;
 }
