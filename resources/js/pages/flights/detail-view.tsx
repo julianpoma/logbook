@@ -2,14 +2,14 @@ import { Button } from '@/components/ui/button';
 import Input from '@/components/ui/input';
 import Select from '@/components/ui/select';
 import Textarea from '@/components/ui/textarea';
-import { useSaveShortcut } from '@/hooks/useSaveShortcut';
+import useCmdSSubmit from '@/hooks/useCmdSSubmit';
 import useFlightPage from '@/state/flight-slice';
 import { Aircraft } from '@/types/aircrafts';
 import { Flight } from '@/types/flights';
 import { Field, Fieldset, Label, Legend } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { CopyCheck, Save, Trash2, X } from 'lucide-react';
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 
 type HeaderProps = {
   children: React.ReactNode;
@@ -29,6 +29,8 @@ type FormProps = {
 };
 
 function Form({ flight, aircrafts }: FormProps) {
+  const formRef = useRef<HTMLFormElement>(null);
+
   const { unselectEntity } = useFlightPage();
 
   const mode = flight ? 'edit' : 'create';
@@ -77,13 +79,10 @@ function Form({ flight, aircrafts }: FormProps) {
     [mode, post, put, flight, setDefaults, unselectEntity],
   );
 
-  useSaveShortcut({
-    onSave: handleSubmit,
-    enabled: isDirty,
-  });
+  useCmdSSubmit(formRef, isDirty);
 
   return (
-    <form className="grid h-full grid-rows-[41px_1fr] overflow-y-auto bg-sidebar" onSubmit={handleSubmit}>
+    <form ref={formRef} className="grid h-full grid-rows-[41px_1fr] overflow-y-auto bg-sidebar" onSubmit={handleSubmit}>
       <Header>
         <div className="flex w-full flex-row items-center justify-between">
           <span className="block">{mode === 'create' ? 'New flight' : 'Properties'}</span>

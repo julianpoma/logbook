@@ -1,22 +1,17 @@
 import { useEffect } from 'react';
 
-type Args = {
-  onSave: () => void;
-  enabled?: boolean;
-};
-
-export function useSaveShortcut({ onSave, enabled = true }: Args) {
+export default function useCmdSSubmit(formRef: React.RefObject<HTMLFormElement | null>, enabled: boolean = true) {
   useEffect(() => {
     if (!enabled) return;
 
     function handleKeyDown(event: KeyboardEvent) {
       if ((event.metaKey || event.ctrlKey) && event.key === 's') {
         event.preventDefault();
-        onSave();
+        formRef.current?.requestSubmit();
       }
     }
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [onSave, enabled]);
+  }, [formRef, enabled]);
 }
