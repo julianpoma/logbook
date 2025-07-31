@@ -45,7 +45,7 @@ class FlightController extends Controller
             'user_id' => $request->user()->id,
         ]);
 
-        return to_route('flights');
+        return to_route('flights.index');
     }
 
     /**
@@ -55,7 +55,7 @@ class FlightController extends Controller
     {
         $flight->update($request->validated());
 
-        return to_route('flights');
+        return to_route('flights.index');
     }
 
     /**
@@ -70,6 +70,6 @@ class FlightController extends Controller
 
         $flight->delete();
 
-        return to_route('flights');
+        return to_route('flights.index');
     }
 }
