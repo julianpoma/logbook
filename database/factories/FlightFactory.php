@@ -78,7 +78,7 @@ class FlightFactory extends Factory
 
         // Landings
         $dayLandings = fake()->numberBetween(1, 5);
-        $nightLandings = $isNightFlight ? fake()->numberBetween(0, 3) : 0;
+        $nightLandings = $isNightFlight ? fake()->numberBetween(1, 3) : null;
 
         return [
             'user_id' => User::factory(),
