@@ -8,6 +8,7 @@ import { Flight } from '@/types/flights';
 import { Field, Fieldset, Label, Legend } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { CopyCheck, Save, Trash, X } from 'lucide-react';
+import { useCallback, useEffect } from 'react';
 
 type HeaderProps = {
   children: React.ReactNode;
@@ -50,19 +51,36 @@ function Form({ flight, aircrafts }: FormProps) {
     remarks: flight?.remarks ?? '',
   });
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const handleSubmit = useCallback(
+    (event?: React.FormEvent<HTMLFormElement>) => {
+      event?.preventDefault();
 
-    if (mode === 'create') {
-      post('/flights');
-    } else {
-      put('/flights/' + flight!.id, {
-        onSuccess() {
-          setDefaults();
-        },
-      });
+      console.log('re-render');
+
+      if (mode === 'create') {
+        post('/flights');
+      } else {
+        put('/flights/' + flight!.id, {
+          onSuccess() {
+            setDefaults();
+          },
+        });
+      }
+    },
+    [mode, post, put, flight, setDefaults],
+  );
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if ((event.metaKey || event.ctrlKey) && event.key === 's') {
+        event.preventDefault();
+        if (isDirty) handleSubmit();
+      }
     }
-  }
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isDirty, handleSubmit]);
 
   return (
     <form className="grid h-full grid-rows-[41px_1fr] overflow-y-auto bg-sidebar" onSubmit={handleSubmit}>
