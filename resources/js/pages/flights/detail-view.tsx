@@ -32,7 +32,7 @@ function Form({ flight, aircrafts }: FormProps) {
 
   const mode = flight ? 'edit' : 'create';
 
-  const { data, setData, isDirty, setDefaults, post, put } = useForm({
+  const { data, setData, isDirty, setDefaults, post, put, reset } = useForm({
     date: flight?.date,
     departure_airport: flight?.departure_airport,
     arrival_airport: flight?.arrival_airport,
@@ -58,7 +58,11 @@ function Form({ flight, aircrafts }: FormProps) {
       console.log('re-render');
 
       if (mode === 'create') {
-        post('/flights');
+        post('/flights', {
+          onSuccess() {
+            unselectEntity();
+          },
+        });
       } else {
         put('/flights/' + flight!.id, {
           onSuccess() {
@@ -67,7 +71,7 @@ function Form({ flight, aircrafts }: FormProps) {
         });
       }
     },
-    [mode, post, put, flight, setDefaults],
+    [mode, post, put, flight, setDefaults, unselectEntity],
   );
 
   useEffect(() => {
