@@ -9,7 +9,7 @@ beforeEach(function () {
     $this->aircraft = Aircraft::factory()->create(['user_id' => $this->user->id]);
 });
 
-describe('flight.index', function () {
+describe('index', function () {
     it('requires authentication', function () {
         $response = $this->get('/flights', []);
 
@@ -17,7 +17,13 @@ describe('flight.index', function () {
     });
 });
 
-describe('flight.store', function () {
+describe('store', function () {
+    it('requires authentication', function () {
+        $response = $this->post('/flights', []);
+
+        $response->assertRedirect('/login');
+    });
+
     it('creates a flight with valid data', function () {
         $flightData = [
             'date' => '2024-01-15',
@@ -164,15 +170,21 @@ describe('flight.store', function () {
             'landings_day',
         ]);
     });
-
-    it('requires authentication', function () {
-        $response = $this->post('/flights', []);
-
-        $response->assertRedirect('/login');
-    });
 });
 
-describe('flight.destroy', function () {
+describe('destroy', function () {
+    it('requires authentication', function () {
+        $flight = Flight::factory()->create([
+            'user_id' => $this->user->id,
+            'aircraft_id' => $this->aircraft->id,
+        ]);
+
+        $response = $this->delete(route('flights.destroy', $flight));
+
+        $response->assertRedirect('/login');
+        $this->assertDatabaseHas('flights', ['id' => $flight->id]);
+    });
+
     test('only the owner can delete a flight', function () {
         $flight = Flight::factory()->create([
             'user_id' => $this->user->id,
@@ -201,15 +213,4 @@ describe('flight.destroy', function () {
         $this->assertDatabaseMissing('flights', ['id' => $flight->id]);
     });
 
-    it('requires authentication', function () {
-        $flight = Flight::factory()->create([
-            'user_id' => $this->user->id,
-            'aircraft_id' => $this->aircraft->id,
-        ]);
-
-        $response = $this->delete(route('flights.destroy', $flight));
-
-        $response->assertRedirect('/login');
-        $this->assertDatabaseHas('flights', ['id' => $flight->id]);
-    });
 });
