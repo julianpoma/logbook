@@ -10,7 +10,7 @@ type Props = {
 };
 
 export function AppSidebarHeader({ breadcrumbs = [] }: Props) {
-  const { unselectEntity } = useFlightPage();
+  const { createEntry } = useFlightPage();
 
   return (
     <header className="border-sidebar-border/50 flex h-10 shrink-0 items-center justify-between gap-2 border-b px-6 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 md:px-4">
@@ -19,7 +19,7 @@ export function AppSidebarHeader({ breadcrumbs = [] }: Props) {
         <Breadcrumbs breadcrumbs={breadcrumbs} />
       </div>
 
-      <Button onClick={() => unselectEntity()}>
+      <Button onClick={() => createEntry()}>
         <Plus />
         New flight
       </Button>

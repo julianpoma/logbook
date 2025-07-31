@@ -1,5 +1,6 @@
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import AppLayout from '@/layouts/app-layout';
+import useFlightPage from '@/state/flight-slice';
 import { type BreadcrumbItem } from '@/types';
 import { Aircraft } from '@/types/aircrafts';
 import type { Flight } from '@/types/flights';
@@ -20,6 +21,8 @@ type Props = {
 };
 
 export default function Flights({ aircrafts, flights }: Props) {
+  const { entryId } = useFlightPage();
+
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Flights" />
@@ -29,9 +32,9 @@ export default function Flights({ aircrafts, flights }: Props) {
           <DataTable flights={flights} />
         </ResizablePanel>
 
-        <ResizableHandle withHandle />
+        <ResizableHandle withHandle hidden={entryId === null} />
 
-        <ResizablePanel defaultSize={20} minSize={20} maxSize={25}>
+        <ResizablePanel defaultSize={20} minSize={20} maxSize={25} hidden={entryId === null}>
           <DetailView flights={flights} aircrafts={aircrafts} />
         </ResizablePanel>
       </ResizablePanelGroup>

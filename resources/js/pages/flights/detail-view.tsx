@@ -7,7 +7,7 @@ import { Aircraft } from '@/types/aircrafts';
 import { Flight } from '@/types/flights';
 import { Field, Fieldset, Label, Legend } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
-import { CopyCheck, Save, Trash } from 'lucide-react';
+import { CopyCheck, Save, Trash, X } from 'lucide-react';
 
 type HeaderProps = {
   children: React.ReactNode;
@@ -27,6 +27,8 @@ type FormProps = {
 };
 
 function Form({ flight, aircrafts }: FormProps) {
+  const { unselectEntity } = useFlightPage();
+
   const mode = flight ? 'edit' : 'create';
 
   const { data, setData, isDirty, setDefaults, post, put } = useForm({
@@ -68,7 +70,18 @@ function Form({ flight, aircrafts }: FormProps) {
         <div className="flex w-full flex-row items-center justify-between">
           <span className="block">Properties</span>
 
-          <div className="flex items-center gap-1">
+          <div className="flex flex-row-reverse items-center">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={(event) => {
+                event.preventDefault();
+                unselectEntity();
+              }}
+            >
+              <X />
+            </Button>
+
             {mode === 'edit' && (
               <Button variant="tertiary" size="icon" onClick={(event) => event.preventDefault()}>
                 <Trash />
