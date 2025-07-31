@@ -36,14 +36,6 @@ class FlightController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreFlightRequest $request)
@@ -54,22 +46,6 @@ class FlightController extends Controller
         ]);
 
         return to_route('flights');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Flight $flight)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Flight $flight)
-    {
-        //
     }
 
     /**
