@@ -183,7 +183,7 @@ function Form({ flight, aircrafts }: FormProps) {
               <Input
                 name="time_total"
                 type="number"
-                min={0.1}
+                min={0}
                 step={0.1}
                 defaultValue={data.time_total}
                 onChange={(event) => setData('time_total', event.target.value != '' ? event.target.valueAsNumber : '')}
@@ -198,7 +198,7 @@ function Form({ flight, aircrafts }: FormProps) {
               <Input
                 name="time_pic"
                 type="number"
-                min={0.1}
+                min={0}
                 step={0.1}
                 value={data.time_pic}
                 onChange={(event) => setData('time_pic', event.target.value != '' ? event.target.valueAsNumber : '')}
@@ -223,7 +223,7 @@ function Form({ flight, aircrafts }: FormProps) {
               <Input
                 name="time_sic"
                 type="number"
-                min={0.1}
+                min={0}
                 step={0.1}
                 value={data.time_sic}
                 onChange={(event) => setData('time_sic', event.target.value != '' ? event.target.valueAsNumber : '')}
@@ -248,7 +248,7 @@ function Form({ flight, aircrafts }: FormProps) {
               <Input
                 name="time_xc"
                 type="number"
-                min={0.1}
+                min={0}
                 step={0.1}
                 value={data.time_xc}
                 onChange={(event) => setData('time_xc', event.target.value != '' ? event.target.valueAsNumber : '')}
@@ -273,7 +273,7 @@ function Form({ flight, aircrafts }: FormProps) {
               <Input
                 name="time_night"
                 type="number"
-                min={0.1}
+                min={0}
                 step={0.1}
                 value={data.time_night}
                 onChange={(event) => setData('time_night', event.target.value != '' ? event.target.valueAsNumber : '')}
@@ -298,7 +298,7 @@ function Form({ flight, aircrafts }: FormProps) {
               <Input
                 name="time_solo"
                 type="number"
-                min={0.1}
+                min={0}
                 step={0.1}
                 value={data.time_solo}
                 onChange={(event) => setData('time_solo', event.target.value != '' ? event.target.valueAsNumber : '')}
@@ -323,7 +323,7 @@ function Form({ flight, aircrafts }: FormProps) {
               <Input
                 name="time_dual_received"
                 type="number"
-                min={0.1}
+                min={0}
                 step={0.1}
                 value={data.time_dual_received}
                 onChange={(event) => setData('time_dual_received', event.target.value != '' ? event.target.valueAsNumber : '')}
@@ -352,7 +352,7 @@ function Form({ flight, aircrafts }: FormProps) {
               <Input
                 name="time_actual_instrument"
                 type="number"
-                min={0.1}
+                min={0}
                 step={0.1}
                 value={data.time_actual_instrument}
                 onChange={(event) => setData('time_actual_instrument', event.target.value != '' ? event.target.valueAsNumber : '')}
@@ -377,7 +377,7 @@ function Form({ flight, aircrafts }: FormProps) {
               <Input
                 name="time_simulated_instrument"
                 type="number"
-                min={0.1}
+                min={0}
                 step={0.1}
                 value={data.time_simulated_instrument}
                 onChange={(event) => setData('time_simulated_instrument', event.target.value != '' ? event.target.valueAsNumber : '')}
@@ -406,7 +406,7 @@ function Form({ flight, aircrafts }: FormProps) {
               <Input
                 name="landings_day"
                 type="number"
-                min={1}
+                min={0}
                 step={1}
                 value={data.landings_day}
                 onChange={(event) => setData('landings_day', event.target.value != '' ? event.target.valueAsNumber : '')}
@@ -420,7 +420,7 @@ function Form({ flight, aircrafts }: FormProps) {
               <Input
                 name="landings_night"
                 type="number"
-                min={1}
+                min={0}
                 step={1}
                 value={data.landings_night}
                 onChange={(event) => setData('landings_night', event.target.value != '' ? event.target.valueAsNumber : '')}

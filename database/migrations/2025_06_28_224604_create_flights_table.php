@@ -36,8 +36,8 @@ return new class extends Migration
             $table->decimal('time_actual_instrument', 3, 1)->nullable();
             $table->decimal('time_simulated_instrument', 3, 1)->nullable();
 
-            $table->integer('landings_day');
-            $table->integer('landings_night');
+            $table->integer('landings_day')->nullable();
+            $table->integer('landings_night')->nullable();
 
             $table->text('remarks')->nullable();
             $table->timestamps();

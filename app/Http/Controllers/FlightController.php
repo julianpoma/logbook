@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreFlightRequest;
 use App\Models\Aircraft;
 use App\Models\Flight;
 use Illuminate\Http\Request;
@@ -45,9 +46,14 @@ class FlightController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreFlightRequest $request)
     {
-        dd($request->input());
+        Flight::create([
+            ...$request->validated(),
+            'user_id' => $request->user()->id,
+        ]);
+
+        return to_route('flights');
     }
 
     /**
