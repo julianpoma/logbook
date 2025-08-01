@@ -2,10 +2,9 @@
 
 use App\Http\Controllers\FlightController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    return redirect()->to(route('flights.index'));
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {

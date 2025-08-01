@@ -5,7 +5,6 @@ import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
 import { ErrorBoundary } from 'react-error-boundary';
-import { initializeTheme } from './hooks/use-appearance';
 
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -26,6 +25,3 @@ createInertiaApp({
     color: '#4B5563',
   },
 });
-
-// This will set light / dark mode on load...
-initializeTheme();
