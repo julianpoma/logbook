@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import Input from '@/components/ui/input';
 import Select from '@/components/ui/select';
 import Textarea from '@/components/ui/textarea';
 import useCmdSSubmit from '@/hooks/useCmdSSubmit';
@@ -8,7 +9,6 @@ import { useForm } from '@inertiajs/react';
 import { CopyCheck, Save, Trash2, X } from 'lucide-react';
 import { useCallback, useRef } from 'react';
 import { route } from 'ziggy-js';
-import Input from '../../components/ui/input';
 
 function Header({ children }) {
   return (

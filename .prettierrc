@@ -16,13 +16,13 @@
             }
         },
         {
-            "files": "**/*.ts",
+            "files": "**/*.js",
             "options": {
                 "tabWidth": 2
             }
         },
         {
-            "files": "**/*.tsx",
+            "files": "**/*.jsx",
             "options": {
                 "tabWidth": 2
             }

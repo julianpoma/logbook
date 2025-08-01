@@ -3,23 +3,21 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["resources/js/*"],
-      "ziggy-js": ["./vendor/tightenco/ziggy"]
+      "ziggy-js": ["vendor/tightenco/ziggy"]
     },
     "target": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ES6"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "checkJs": false,
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "skipLibCheck": true
   },
-  "include": ["resources/js/**/*", "vite.config.js"],
-  "exclude": ["node_modules", "vendor"]
+  "include": ["resources/js/**/*"],
+  "exclude": ["node_modules", "vendor", "public"]
 }
