@@ -13,9 +13,6 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  esbuild: {
-    jsx: 'automatic',
-  },
   resolve: {
     alias: {
       '@': resolve(__dirname, 'resources/js'),
