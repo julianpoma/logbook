@@ -4,6 +4,7 @@ import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 
+/** @type {import('eslint').Linter.Config[]} */
 export default [
   js.configs.recommended,
   {
