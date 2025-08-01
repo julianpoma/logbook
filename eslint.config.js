@@ -1,52 +1,57 @@
-import js from '@eslint/js';
+1import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 
-/** @type {import('eslint').Linter.Config[]} */
 export default [
   js.configs.recommended,
   {
     files: ['**/*.{js,jsx}'],
-    ...react.configs.flat.recommended,
-    ...react.configs.flat['jsx-runtime'], // Required for React 17+
+    plugins: {
+      react,
+      'react-hooks': reactHooks,
+    },
     languageOptions: {
       globals: {
         ...globals.browser,
+        ...globals.node,
       },
       parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
+        ecmaFeatures: { jsx: true },
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
     },
-    rules: {
-      'react/react-in-jsx-scope': 'off',
-      'react/prop-types': 'off',
-      'react/no-unescaped-entities': 'off',
-      'no-unused-vars': 'off',
-    },
     settings: {
-      react: {
-        version: 'detect',
-      },
-    },
-  },
-  {
-    files: ['**/*.{js,jsx}'],
-    plugins: {
-      'react-hooks': reactHooks,
+      react: { version: 'detect' },
     },
     rules: {
+      // React rules
+      'react/react-in-jsx-scope': 'off', // React 17+
+      'react/prop-types': 'off', // We're using JS, not TS
+
+      // React Hooks rules
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
+
+      // General rules
+      'no-unused-vars': ['warn', {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^[A-Z]|^_', // Ignore React components and _ prefixed vars
+      }],
+      'no-console': 'warn',
+      'prefer-const': 'error',
     },
   },
   {
-    ignores: ['vendor', 'node_modules', 'public', 'bootstrap/ssr', 'tailwind.config.js'],
+    ignores: [
+      'node_modules/**',
+      'vendor/**',
+      'public/**',
+      'bootstrap/ssr/**',
+      '*.config.js',
+    ],
   },
-  prettier, // Turn off all rules that might conflict with Prettier
+  prettier, // Must be last to override other rules
 ];
