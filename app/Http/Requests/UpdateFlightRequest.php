@@ -23,8 +23,8 @@ class UpdateFlightRequest extends FormRequest
     {
         return [
             'date' => ['required', 'date'],
-            'departure_airport' => ['required', 'string', 'max:4'],
-            'arrival_airport' => ['required', 'string', 'max:4'],
+            'departure_airport' => ['required', 'string', 'min:3', 'max:4'],
+            'arrival_airport' => ['required', 'string', 'min:3', 'max:4'],
             'aircraft_id' => ['required', 'integer', 'exists:aircrafts,id'],
             'time_total' => ['required', 'numeric', 'min:0.1', 'max:99.9'],
             'time_pic' => ['nullable', 'numeric', 'min:0', 'max:99.9'],

@@ -1,4 +1,4 @@
-1import js from '@eslint/js';
+import js from '@eslint/js';
 import prettier from 'eslint-config-prettier';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -36,22 +36,19 @@ export default [
       'react-hooks/exhaustive-deps': 'warn',
 
       // General rules
-      'no-unused-vars': ['warn', {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^[A-Z]|^_', // Ignore React components and _ prefixed vars
-      }],
+      'no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^[A-Z]', // Ignore React components and _ prefixed vars
+        },
+      ],
       'no-console': 'warn',
       'prefer-const': 'error',
     },
   },
   {
-    ignores: [
-      'node_modules/**',
-      'vendor/**',
-      'public/**',
-      'bootstrap/ssr/**',
-      '*.config.js',
-    ],
+    ignores: ['node_modules/**', 'vendor/**', 'public/**', 'bootstrap/ssr/**', '*.config.js'],
   },
   prettier, // Must be last to override other rules
 ];
