@@ -17,7 +17,10 @@ class AircraftController extends Controller
     {
         $aircrafts = Aircraft::query()
             ->where('user_id', Auth::id())
-            ->orderBy('ident', 'asc')
+            ->orderBy('make', 'asc')
+            // This helper uses a select subquery. It is going to be slow with large datasets, but for now it's convinient
+            ->withCount('flights')
+            ->withSum('flights', 'time_total')
             ->get();
 
         return Inertia::render('aircrafts/page', [
