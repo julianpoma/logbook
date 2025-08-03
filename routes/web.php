@@ -12,6 +12,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/flights', [FlightController::class, 'store'])->name('flights.store');
     Route::put('/flights/{flight}', [FlightController::class, 'update'])->name('flights.update');
     Route::delete('/flights/{flight}', [FlightController::class, 'destroy'])->name('flights.destroy');
+
+    Route::get('/aircrafts', [FlightController::class, 'index'])->name('aircrafts.index');
+    Route::post('/aircrafts', [FlightController::class, 'store'])->name('aircrafts.store');
+    Route::put('/aircrafts/{aircraft}', [FlightController::class, 'update'])->name('aircrafts.update');
+    Route::delete('/aircrafts/{aircraft}', [FlightController::class, 'destroy'])->name('aircrafts.destroy');
 });
 
 require __DIR__.'/settings.php';
