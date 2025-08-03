@@ -31,12 +31,14 @@ export default [
       // React rules
       'react/react-in-jsx-scope': 'off', // React 17+
       'react/prop-types': 'off', // We're using JS, not TS
+      'react/jsx-no-undef': 'error', // Flag undefined components in JSX
 
       // React Hooks rules
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
 
       // General rules
+      'no-undef': 'error',
       'no-unused-vars': [
         'error',
         {
