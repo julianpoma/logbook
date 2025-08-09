@@ -17,7 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/aircrafts', [AircraftController::class, 'index'])->name('aircrafts.index');
     Route::post('/aircrafts', [AircraftController::class, 'store'])->name('aircrafts.store');
     Route::put('/aircrafts/{aircraft}', [AircraftController::class, 'update'])->name('aircrafts.update');
-    Route::delete('/aircrafts/{aircraft}', [AircraftController::class, 'destroy'])->name('aircrafts.destroy');
+    // Route::delete('/aircrafts/{aircraft}', [AircraftController::class, 'destroy'])->name('aircrafts.destroy');
 });
 
 require __DIR__.'/settings.php';
