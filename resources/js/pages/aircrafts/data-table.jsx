@@ -1,4 +1,5 @@
 import { theme } from '@/lib/ag-grid-theme';
+import useAircraftPage from '@/state/aircraft-slice';
 import { AgGridReact } from 'ag-grid-react';
 
 const rowSelection = {
@@ -24,6 +25,8 @@ const columns = [
 ];
 
 export default function DataTable({ aircrafts }) {
+  const { selectEntry, setGridRef } = useAircraftPage();
+
   return (
     <AgGridReact
       theme={theme}
@@ -31,10 +34,10 @@ export default function DataTable({ aircrafts }) {
       columnDefs={columns}
       rowSelection={rowSelection}
       getRowId={(row) => row.data.id}
-      // onGridReady={(params) => setGridRef(params.api)}
-      // onRowSelected={(event) => {
-      //   if (event.node.isSelected()) selectEntry(event.data.id);
-      // }}
+      onGridReady={(params) => setGridRef(params.api)}
+      onRowSelected={(event) => {
+        if (event.node.isSelected()) selectEntry(event.data.id);
+      }}
       paginationPageSize={20}
       pagination
     />

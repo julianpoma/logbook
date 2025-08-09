@@ -1,8 +1,10 @@
 import { AppSidebarHeader } from '@/components/app-sidebar-header';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import AppLayout from '@/layouts/app-layout';
+import useAircraftPage from '@/state/aircraft-slice';
 import { Head } from '@inertiajs/react';
 import DataTable from './data-table';
+import DetailView from './detail-view';
 
 const breadcrumbs = [
   {
@@ -12,7 +14,7 @@ const breadcrumbs = [
 ];
 
 export default function Aircrafts({ aircrafts }) {
-  const entryId = null;
+  const { entryId } = useAircraftPage();
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
@@ -28,7 +30,7 @@ export default function Aircrafts({ aircrafts }) {
         <ResizableHandle withHandle hidden={entryId === null} />
 
         <ResizablePanel defaultSize={20} minSize={20} maxSize={25} hidden={entryId === null}>
-          {/* <DetailView aircrafts={aircrafts} />*/}
+          <DetailView aircrafts={aircrafts} />
         </ResizablePanel>
       </ResizablePanelGroup>
     </AppLayout>
