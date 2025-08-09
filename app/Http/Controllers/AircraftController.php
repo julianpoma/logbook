@@ -33,7 +33,12 @@ class AircraftController extends Controller
      */
     public function store(StoreAircraft $request)
     {
-        //
+        Aircraft::create([
+            ...$request->validated(),
+            'user_id' => $request->user()->id,
+        ]);
+
+        return to_route('aircrafts.index');
     }
 
     /**

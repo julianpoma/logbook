@@ -19,6 +19,7 @@ class Aircraft extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'make',
         'model',
         'ident',
