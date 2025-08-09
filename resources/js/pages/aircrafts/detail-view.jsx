@@ -8,7 +8,7 @@ import { AIRCRAFT_CLASSES } from '@/lib/constants';
 import useAircraftPage from '@/state/aircraft-slice';
 import { Field, Fieldset, Label, Legend } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
-import { Save, Trash2, X } from 'lucide-react';
+import { Save, X } from 'lucide-react';
 import { useCallback, useRef } from 'react';
 import { route } from 'ziggy-js';
 
@@ -27,15 +27,7 @@ function Form({ aircraft }) {
 
   const mode = aircraft ? 'edit' : 'create';
 
-  const {
-    data,
-    setData,
-    isDirty,
-    setDefaults,
-    post,
-    put,
-    delete: destroy,
-  } = useForm({
+  const { data, setData, isDirty, setDefaults, post, put } = useForm({
     make: aircraft?.make ?? '',
     model: aircraft?.model ?? '',
     ident: aircraft?.ident ?? '',
@@ -85,21 +77,6 @@ function Form({ aircraft }) {
             >
               <X />
             </Button>
-
-            {mode === 'edit' && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={(event) => {
-                  event.preventDefault();
-                  destroy('/aircrafts/' + aircraft.id, {
-                    onSuccess: () => unselectEntity(),
-                  });
-                }}
-              >
-                <Trash2 />
-              </Button>
-            )}
 
             {isDirty && (
               <Button type="submit" variant="ghost" size="icon">
