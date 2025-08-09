@@ -37,9 +37,7 @@ function Form({ aircraft }) {
       </Header>
 
       <div data-slot="detail-content" className="px-3 py-1">
-        <div className="text-sm text-muted-foreground">
-          Aircraft form implementation pending...
-        </div>
+        <div className="text-muted-foreground text-sm">Aircraft form implementation pending...</div>
       </div>
     </div>
   );
