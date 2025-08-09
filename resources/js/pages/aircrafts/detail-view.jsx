@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+import Checkbox from '@/components/ui/checkbox';
 import Input from '@/components/ui/input';
 import Select from '@/components/ui/select';
 import Textarea from '@/components/ui/textarea';
@@ -159,13 +159,13 @@ function Form({ aircraft }) {
           </Field>
         </Fieldset>
 
-        <Fieldset className="mb-4 space-y-1">
+        <Fieldset className="mb-4 space-y-2">
           <Legend className="text-sm/6 text-muted uppercase">Endorsements</Legend>
 
           <Field>
             <Label className="flex items-center space-x-2">
-              <Checkbox name="is_complex" checked={data.is_complex} onCheckedChange={(checked) => setData('is_complex', checked)} />
-              <span className="text-xs/6 leading-none font-medium select-none">Complex</span>
+              <Checkbox name="is_complex" checked={data.is_complex} onChange={(checked) => setData('is_complex', checked)} />
+              <span className="text-sm/6 leading-none select-none">Complex</span>
             </Label>
           </Field>
 
@@ -174,30 +174,30 @@ function Form({ aircraft }) {
               <Checkbox
                 name="is_high_performance"
                 checked={data.is_high_performance}
-                onCheckedChange={(checked) => setData('is_high_performance', checked)}
+                onChange={(checked) => setData('is_high_performance', checked)}
               />
-              <span className="text-xs/6 leading-none font-medium select-none">High Performance</span>
+              <span className="text-sm/6 leading-none select-none">High Performance</span>
             </Label>
           </Field>
 
           <Field>
             <Label className="flex items-center space-x-2">
-              <Checkbox name="is_pressurized" checked={data.is_pressurized} onCheckedChange={(checked) => setData('is_pressurized', checked)} />
-              <span className="text-xs/6 leading-none font-medium select-none">Pressurized</span>
+              <Checkbox name="is_pressurized" checked={data.is_pressurized} onChange={(checked) => setData('is_pressurized', checked)} />
+              <span className="text-sm/6 leading-none select-none">Pressurized</span>
             </Label>
           </Field>
 
           <Field>
             <Label className="flex items-center space-x-2">
-              <Checkbox name="is_turbine" checked={data.is_turbine} onCheckedChange={(checked) => setData('is_turbine', checked)} />
-              <span className="text-xs/6 leading-none font-medium select-none">Turbine</span>
+              <Checkbox name="is_turbine" checked={data.is_turbine} onChange={(checked) => setData('is_turbine', checked)} />
+              <span className="text-sm/6 leading-none select-none">Turbine</span>
             </Label>
           </Field>
 
           <Field>
             <Label className="flex items-center space-x-2">
-              <Checkbox name="is_tailwheel" checked={data.is_tailwheel} onCheckedChange={(checked) => setData('is_tailwheel', checked)} />
-              <span className="text-xs/6 leading-none font-medium select-none">Tailwheel</span>
+              <Checkbox name="is_tailwheel" checked={data.is_tailwheel} onChange={(checked) => setData('is_tailwheel', checked)} />
+              <span className="text-sm/6 leading-none select-none">Tailwheel</span>
             </Label>
           </Field>
         </Fieldset>

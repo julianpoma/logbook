@@ -1,30 +1,20 @@
-import * as React from "react"
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox"
-import { CheckIcon } from "lucide-react"
+import { cn } from '@/lib/utils';
+import { Checkbox as HeadlessCheckbox } from '@headlessui/react';
+import { CheckIcon } from 'lucide-react';
 
-import { cn } from "@/lib/utils"
-
-function Checkbox({
-  className,
-  ...props
-}) {
+export default function Checkbox({ checked, onChange, className }) {
   return (
-    <CheckboxPrimitive.Root
+    <HeadlessCheckbox
       data-slot="checkbox"
+      checked={checked}
+      onChange={onChange}
       className={cn(
-        "peer border-input data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground data-[state=checked]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-[4px] border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
-        className
+        'group flex size-4.5 shrink-0 items-center justify-center rounded border bg-white data-checked:border-ring data-checked:bg-ring',
+        'outline-none focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50',
+        className,
       )}
-      {...props}
     >
-      <CheckboxPrimitive.Indicator
-        data-slot="checkbox-indicator"
-        className="flex items-center justify-center text-current transition-none"
-      >
-        <CheckIcon className="size-3.5" />
-      </CheckboxPrimitive.Indicator>
-    </CheckboxPrimitive.Root>
-  )
+      <CheckIcon stroke="white" className="size-3.5 opacity-0 group-data-checked:opacity-100" />
+    </HeadlessCheckbox>
+  );
 }
-
-export { Checkbox }

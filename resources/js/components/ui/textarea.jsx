@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { Textarea as HeadlessTextarea } from '@headlessui/react';
 
-export default function Textarea({ className, rows = 3, ...props }) {
+export default function Textarea({ className, rows = 5, ...props }) {
   return (
     <HeadlessTextarea
       rows={rows}
