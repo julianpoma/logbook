@@ -47,6 +47,26 @@ class Aircraft extends Model
     ];
 
     /**
+     * The list of FAA approved aircraft classes.
+     *
+     * @var array
+     */
+    public static $classes = [
+        'ASEL',
+        'ASES',
+        'AMEL',
+        'AMES',
+        'RH',
+        'RG',
+        'GL',
+        'LTA',
+        'PPC',
+        'PPS',
+        'WSC',
+        'WSS',
+    ];
+
+    /**
      * Get the user that owns the flight.
      */
     public function user(): BelongsTo
