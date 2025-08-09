@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Aircraft;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateAircraft extends FormRequest
 {
@@ -11,7 +13,7 @@ class UpdateAircraft extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->aircraft->user_id == $this->user()->id;
     }
 
     /**
@@ -22,7 +24,17 @@ class UpdateAircraft extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'make' => ['required', 'string'],
+            'model' => ['required', 'string'],
+            'ident' => ['required', 'string', 'min:3'],
+            'horsepower' => ['required', 'numeric'],
+            'class' => ['required', 'string', Rule::in(Aircraft::$classes)],
+            'is_complex' => ['nullable', 'boolean'],
+            'is_high_performance' => ['nullable', 'boolean'],
+            'is_pressurized' => ['nullable', 'boolean'],
+            'is_turbine' => ['nullable', 'boolean'],
+            'is_tailwheel' => ['nullable', 'boolean'],
+            'notes' => ['nullable', 'string', 'max:1000'],
         ];
     }
 }

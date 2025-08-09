@@ -41,7 +41,9 @@ class AircraftController extends Controller
      */
     public function update(UpdateAircraft $request, Aircraft $aircraft)
     {
-        //
+        $aircraft->update($request->validated());
+
+        return to_route('aircrafts.index');
     }
 
     /**
